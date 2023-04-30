@@ -4,8 +4,6 @@ version = "0.1.0"
 description = "Homework"
 authors = ["Damir Petrov <petrovdamir2235@gmail.com>"]
 license = "MIT"
-readme = "README.md"
-packages = [{include = "serialization_checkers"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -16,6 +14,7 @@ avro = "^1.11.1"
 google = "^3.0.0"
 protobuf = "^4.22.3"
 pyyaml = "^6.0"
+requests = "^2.29.0"
 
 
 [build-system]

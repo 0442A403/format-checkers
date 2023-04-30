@@ -1,0 +1,85 @@
+version: '3.8'
+services:
+  json_checker:
+    container_name: json_checker
+    image: checkers:latest
+    restart: unless-stopped
+    environment:
+      FLASK_RUN_HOST: localhost
+      FLASK_RUN_PORT: 2000
+      CHECK_FORMAT: json
+    networks:
+      - checker-networks
+
+  xml_checker:
+    container_name: xml_checker
+    image: checkers:latest
+    restart: unless-stopped
+    environment:
+      FLASK_RUN_HOST: localhost
+      FLASK_RUN_PORT: 2000
+      CHECK_FORMAT: xml
+    networks:
+      - checker-networks
+
+  yaml_checker:
+    container_name: yaml_checker
+    image: checkers:latest
+    restart: unless-stopped
+    environment:
+      FLASK_RUN_HOST: localhost
+      FLASK_RUN_PORT: 2000
+      CHECK_FORMAT: yaml
+    networks:
+      - checker-networks
+
+  message_pack_checker:
+    container_name: message_pack_checker
+    image: checkers:latest
+    restart: unless-stopped
+    environment:
+      FLASK_RUN_HOST: localhost
+      FLASK_RUN_PORT: 2000
+      CHECK_FORMAT: message_pack
+    networks:
+      - checker-networks
+
+  pickle_checker:
+    container_name: pickle_checker
+    image: checkers:latest
+    restart: unless-stopped
+    environment:
+      FLASK_RUN_HOST: localhost
+      FLASK_RUN_PORT: 2000
+      CHECK_FORMAT: pickle
+    networks:
+      - checker-networks
+
+  apache_avro_checker:
+    container_name: apache_avro_checker
+    image: checkers:latest
+    restart: unless-stopped
+    environment:
+      FLASK_RUN_HOST: localhost
+      FLASK_RUN_PORT: 2000
+      CHECK_FORMAT: apache_avro
+    networks:
+      - checker-networks
+
+  proxy:
+    container_name: proxy
+    image: checkers-proxy:latest
+    restart: unless-stopped
+    ports:
+      - 2000:2000
+    environment:
+      FLASK_RUN_PORT: 2000
+      FLASK_RUN_HOST: localhost
+      HOSTS: "json=json_checker:xml=xml_checker:yaml=yaml_checker:message_pack=message_pack_checker:pickle=pickle_checker:apache_avro=apache_avro_checker"
+    networks:
+      - checker-networks
+
+
+networks:
+  checker-networks:
+    name: checker-networks

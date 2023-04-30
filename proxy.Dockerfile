@@ -8,9 +8,9 @@ RUN apt-get -y update
 RUN pip install poetry
 RUN poetry install --with dev-dependencies
 
-ENV FLASK_APP=app
+EXPOSE 2000
+ENV FLASK_APP=proxy
 
 COPY ./ /server/
-
 
 ENTRYPOINT ["poetry", "run", "flask", "run"]

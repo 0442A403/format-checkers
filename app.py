@@ -1,10 +1,9 @@
-from typing import Dict, Type, Any
+from os import environ
+from typing import Dict, Type
 
 from flask import Flask, request, Response
-from os import environ
 
 from checkers.apache_avro_checker import ApacheAvroChecker
-from checkers.checker import Checker
 from checkers.json_checker import JsonChecker
 from checkers.message_pack_checker import MessagePackChecker
 from checkers.pickle_checker import PickleChecker
@@ -27,12 +26,15 @@ format: str = environ['CHECK_FORMAT']
 if format not in CHECKER_CLASSES:
     raise Exception("Inappropriate format")
 CheckerClass: Type = CHECKER_CLASSES[format]
+print(format)
 
 
-@app.route('/get_result/', methods=['POST'])
+@app.route('/get_result/', methods=['GET'])
 def get_result():
     data: bytes = request.data
 
+    print(request.headers['check-format'])
+    print(data)
     if not data \
             or 'check-format' not in request.headers \
             or request.headers['check-format'] != format \
@@ -54,4 +56,4 @@ def get_result():
         return Response("Bad format")
 
 if __name__ == "__main__":
-    app.run()
+    app.run('localhost')
