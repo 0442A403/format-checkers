@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "serialization-checkers"
+version = "0.1.0"
+description = "Homework"
+authors = ["Damir Petrov <petrovdamir2235@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "serialization_checkers"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Flask = "^2.3.1"
+lxml = "^4.9.2"
+msgpack = "^1.0.5"
+avro = "^1.11.1"
+google = "^3.0.0"
+protobuf = "^4.22.3"
+pyyaml = "^6.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
